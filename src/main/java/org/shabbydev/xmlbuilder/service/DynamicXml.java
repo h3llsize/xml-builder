@@ -50,10 +50,11 @@ public class DynamicXml implements IDynamicXml {
         if(type != null)
             return;
 
-        type = dynamicJAXBContext.getDynamicType(smevSchemaProperty.getName() + "Type");
+        type = dynamicJAXBContext.getDynamicType(smevSchemaProperty.getTypeName());
 
         if(type != null)
             return;
+
 
         throw new IllegalArgumentException("Dynamic type is not registered");
     }
