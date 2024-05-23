@@ -1,8 +1,6 @@
 package org.shabbydev.xmlbuilder.rest;
 
-import jakarta.xml.bind.JAXBException;
 import org.shabbydev.xml.schemas.SmevBody;
-import org.shabbydev.xml.schemas.SmevSchemaProperty;
 import org.shabbydev.xmlbuilder.service.XmlBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
 @RestController

@@ -1,11 +1,11 @@
 package org.shabbydev.xmlbuilder.service;
 
-import jakarta.xml.bind.JAXBException;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContext;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContextFactory;
 import org.shabbydev.xml.schemas.SmevSchemaProperty;
 import org.xml.sax.EntityResolver;
 
+import javax.xml.bind.JAXBException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.StringWriter;
@@ -24,19 +24,20 @@ public class DynamicXmlBuilder implements IDynamicXmlBuilder{
     }
 
     public static DynamicXmlBuilder of(String xsdFilePath) throws FileNotFoundException, JAXBException {
+        System.out.println("Создаем XSD для : " + xsdFilePath);
+
         DynamicJAXBContext dynamicJAXBContext = DynamicJAXBContextFactory
-                .createContextFromXSD(new FileInputStream(xsdFilePath), null, ClassLoader.getSystemClassLoader(), null);
+                .createContextFromXSD(new FileInputStream(xsdFilePath), null, null, null);
 
         return new DynamicXmlBuilder(dynamicJAXBContext);
     }
 
     public static DynamicXmlBuilder of(String xsdFilePath, EntityResolver entityResolver) throws FileNotFoundException, JAXBException {
         DynamicJAXBContext dynamicJAXBContext = DynamicJAXBContextFactory
-                .createContextFromXSD(new FileInputStream(xsdFilePath), entityResolver, ClassLoader.getSystemClassLoader(), null);
+                .createContextFromXSD(new FileInputStream(xsdFilePath), entityResolver, null, null);
 
         return new DynamicXmlBuilder(dynamicJAXBContext);
     }
-
     public DynamicXmlBuilder with(SmevSchemaProperty rootProperty) {
         fillDynamicFields(rootProperty);
         return this;

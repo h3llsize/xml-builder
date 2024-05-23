@@ -1,12 +1,13 @@
 package org.shabbydev.xmlbuilder.service;
 
-import jakarta.xml.bind.JAXBException;
 import org.eclipse.persistence.dynamic.DynamicEntity;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContext;
 import org.shabbydev.xml.schemas.SmevBody;
 import org.shabbydev.xml.schemas.SmevSchemaAttribute;
 import org.shabbydev.xml.schemas.SmevSchemaProperty;
 import org.springframework.stereotype.Service;
+
+import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -31,36 +32,10 @@ public class XmlBuilderService {
 
     private void copyCommons(String xsdFilePath) {
         String filePath = getFilePath(xsdFilePath);
-        copyAndMoveFiles(filePath + "commons/", System.getProperty("user.dir") + "/commons/");
-    }
 
-    private void copyAndMoveFiles(String sourceFolderPath, String destinationFolderPath) {
-        File sourceFolder = new File(sourceFolderPath);
-        File destinationFolder = new File(destinationFolderPath);
+        System.out.println("Достаём XSD commons из " + System.getProperty("user.dir") + "/commons/");
 
-        if (sourceFolder.exists() && destinationFolder.exists() && sourceFolder.isDirectory() && destinationFolder.isDirectory()) {
-            File[] filesToCopy = sourceFolder.listFiles();
-
-            if (filesToCopy != null) {
-                for (File file : filesToCopy) {
-                    File destinationFile = new File(destinationFolder, file.getName());
-
-                    if (!destinationFile.exists()) {
-                        try {
-                            Files.copy(file.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                            System.out.println("Скопирован файл: " + file.getName());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            System.err.println("Ошибка при копировании файла: " + file.getName());
-                        }
-                    } else {
-                        System.out.println("Файл уже существует в конечной папке: " + file.getName());
-                    }
-                }
-            }
-        } else {
-            System.err.println("Исходная или конечная папка не существует.");
-        }
+        FileUtils.copyAndMoveFiles(filePath + "commons/", System.getProperty("user.dir") + "/commons/");
     }
 
     private DynamicEntity fillDynamicEntityFields(DynamicEntity dynamic, SmevSchemaProperty root, DynamicJAXBContext dynamicJAXBContext) {

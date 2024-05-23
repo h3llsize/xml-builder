@@ -66,7 +66,7 @@ public class DynamicXml implements IDynamicXml {
 
                 if(attribute.getValue() != null)
                     if (!attribute.getValue().isEmpty())
-                    tryToSetValue(attributeName, attribute.getValue());
+                        tryToSetValue(attributeName, attribute.getValue());
 
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
@@ -125,7 +125,10 @@ public class DynamicXml implements IDynamicXml {
                         if(identificalProperties.containsKey(attributeName)) {
                             identificalProperties.get(attributeName).add(DynamicXml.of(schemaProperty, dynamicJAXBContext).get());
                         } else {
-                            identificalProperties.put(attributeName, List.of(DynamicXml.of(schemaProperty, dynamicJAXBContext).get()));
+                            List<Object> arrayList = new ArrayList<>();
+                            arrayList.add(DynamicXml.of(schemaProperty, dynamicJAXBContext).get());
+
+                            identificalProperties.put(attributeName, arrayList);
                         }
                     }
                 } else {
