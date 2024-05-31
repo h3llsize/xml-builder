@@ -15,6 +15,8 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class XmlBuilderService {
     public String build(SmevBody smevBody) throws FileNotFoundException, JAXBException {
+        System.out.println("Путь к схеме : " + smevBody.getXsdFilePath());
+
         copyCommons(smevBody.getXsdFilePath());
 
         return DynamicXmlBuilder.of(smevBody.getXsdFilePath()).with(smevBody.getSmevSchemaProperty()).build();
@@ -33,7 +35,7 @@ public class XmlBuilderService {
     private void copyCommons(String xsdFilePath) {
         String filePath = getFilePath(xsdFilePath);
 
-        System.out.println("Достаём XSD commons из " + System.getProperty("user.dir") + "/commons/");
+        System.out.println("Копируем : " + filePath + "commons/ -> " + System.getProperty("user.dir") + "\\commons\\");
 
         FileUtils.copyAndMoveFiles(filePath + "commons/", System.getProperty("user.dir") + "/commons/");
     }

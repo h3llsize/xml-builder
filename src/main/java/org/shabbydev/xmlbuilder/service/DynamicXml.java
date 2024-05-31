@@ -6,6 +6,7 @@ import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContext;
 import org.shabbydev.xml.schemas.SmevSchemaAttribute;
 import org.shabbydev.xml.schemas.SmevSchemaProperty;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -55,6 +56,13 @@ public class DynamicXml implements IDynamicXml {
         if(type != null)
             return;
 
+        String old = smevSchemaProperty.getTypeName();
+        String capitalized = old.substring(0, 1).toUpperCase() + old.substring(1);
+
+        type = dynamicJAXBContext.getDynamicType(capitalized);
+
+        if(type != null)
+            return;
 
         throw new IllegalArgumentException("Dynamic type is not registered");
     }
@@ -75,6 +83,18 @@ public class DynamicXml implements IDynamicXml {
     }
 
     private void tryToSetValue(String attrName, String value) {
+
+        if ("senderType".equals(attrName)) {
+            try {
+                dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.rosreestr.artefacts.x.virtual_services.egrn_statement._1_1.SenderTypes", value));
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (JAXBException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
         try {
             dynamic.set(attrName, value);
             return;
@@ -94,6 +114,13 @@ public class DynamicXml implements IDynamicXml {
             return;
         } catch (ParseException | DatatypeConfigurationException ex) {
             System.out.println("BAD TRY TO SET VALUE WITH XMLGregorianCalendar");
+        }
+
+        try {
+            dynamic.set(attrName, Boolean.valueOf(value));
+            return;
+        } catch (Exception e) {
+            System.out.println("BAD TRY TO SET VALUE WITH BOOLEAN");
         }
     }
 

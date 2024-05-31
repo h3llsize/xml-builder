@@ -6,6 +6,7 @@ import org.shabbydev.xml.schemas.SmevSchemaProperty;
 import org.xml.sax.EntityResolver;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.StringWriter;
@@ -49,8 +50,14 @@ public class DynamicXmlBuilder implements IDynamicXmlBuilder{
 
     public String build() throws JAXBException {
         StringWriter stringWriter = new StringWriter();
-        dynamicJAXBContext.createMarshaller().marshal(rootXml.get(), stringWriter);
+        Marshaller marshaller = dynamicJAXBContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-        return stringWriter.toString();
+        marshaller.marshal(rootXml.get(), stringWriter);
+
+        String xmlString = stringWriter.toString(); // Получить содержимое StringWriter в виде строки
+        System.out.println(xmlString); // Печатаем строку с XML
+
+        return xmlString;
     }
 }
