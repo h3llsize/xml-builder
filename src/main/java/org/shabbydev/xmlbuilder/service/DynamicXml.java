@@ -144,8 +144,10 @@ public class DynamicXml implements IDynamicXml {
 
             try {
                 if(schemaProperty.isComplexType()) {
-                    if(schemaProperty.getMaxOccurs() <= 1 && !schemaProperty.isUnbounded())
-                        dynamic.set(getAttributeName(schemaProperty.getName()), DynamicXml.of(schemaProperty, dynamicJAXBContext).get());
+                    if(schemaProperty.getMaxOccurs() <= 1 && !schemaProperty.isUnbounded()) {
+                        if (schemaProperty.isHasChildProperty() || schemaProperty.getValue() != null)
+                            dynamic.set(getAttributeName(schemaProperty.getName()), DynamicXml.of(schemaProperty, dynamicJAXBContext).get());
+                    }
                     else {
                         String attributeName = getAttributeName(schemaProperty.getName());
 
