@@ -14,6 +14,10 @@ repositories {
     }
 }
 
+configurations {
+    jaxb
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
@@ -21,10 +25,14 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.eclipse.persistence:eclipselink:4.0.2'
     runtimeOnly 'org.postgresql:postgresql'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.1'
-    implementation 'jakarta.activation:jakarta.activation-api:2.1.2'
+
+    implementation 'org.eclipse.persistence:eclipselink:2.7.8' // Use the appropriate version
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+    implementation 'com.sun.xml.bind:jaxb-xjc:2.3.0.1'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.3.2'
+
 }
 
 test {
