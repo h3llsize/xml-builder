@@ -145,7 +145,7 @@ public class DynamicXml implements IDynamicXml {
             try {
                 if(schemaProperty.isComplexType()) {
                     if(schemaProperty.getMaxOccurs() <= 1 && !schemaProperty.isUnbounded()) {
-                        if (schemaProperty.isHasChildProperty() || schemaProperty.getValue() != null)
+                        if (schemaProperty.isHasChildProperty() || schemaProperty.getValue() != null || hasAttributeValue(schemaProperty))
                             dynamic.set(getAttributeName(schemaProperty.getName()), DynamicXml.of(schemaProperty, dynamicJAXBContext).get());
                     }
                     else {
@@ -187,6 +187,15 @@ public class DynamicXml implements IDynamicXml {
         for (String s : identificalProperties.keySet()) {
             dynamic.set(s, identificalProperties.get(s));
         }
+    }
+
+    private boolean hasAttributeValue(SmevSchemaProperty smevSchemaProperty) {
+        for (SmevSchemaAttribute attribute : smevSchemaProperty.getAttributes()) {
+            if(attribute.getValue() != null && !attribute.getValue().isEmpty())
+                return true;
+        }
+
+        return false;
     }
 
     private String getAttributeName(String attributeName) {
