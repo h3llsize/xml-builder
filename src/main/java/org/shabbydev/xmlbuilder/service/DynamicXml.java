@@ -87,12 +87,24 @@ public class DynamicXml implements IDynamicXml {
         if ("senderType".equals(attrName)) {
             try {
                 dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.rosreestr.artefacts.x.virtual_services.egrn_statement._1_1.SenderTypes", value));
+                return;
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                System.out.println("BAD TRY TO SET VALUE WITH ENUM");
             } catch (JAXBException e) {
-                throw new RuntimeException(e);
+                System.out.println("BAD TRY TO SET VALUE WITH ENUM");
             }
-            return;
+        }
+
+        if("gender".equals(attrName)) {
+            try {
+                dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.smev.artefacts.x.supplementary.commons._1_0.GenderType", value.toUpperCase()));
+                return;
+            } catch (ClassNotFoundException e) {
+                System.out.println("BAD TRY TO SET VALUE WITH ENUM");
+            } catch (JAXBException e) {
+                System.out.println("BAD TRY TO SET VALUE WITH ENUM");
+            }
+
         }
 
         try {
