@@ -122,6 +122,13 @@ public class DynamicXml implements IDynamicXml {
         }
 
         try {
+            dynamic.set(attrName, Integer.valueOf(value));
+            return;
+        } catch (Exception e) {
+            System.out.println("BAD TRY TO SET VALUE WITH BIG INTEGER");
+        }
+
+        try {
             dynamic.set(attrName, xmlGregorianCalendarFrom(value));
             return;
         } catch (ParseException | DatatypeConfigurationException ex) {
