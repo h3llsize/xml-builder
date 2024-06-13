@@ -97,7 +97,7 @@ public class DynamicXml implements IDynamicXml {
 
         if("gender".equals(attrName)) {
             try {
-                dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.smev.artefacts.x.supplementary.commons._1_0.GenderType", value.toUpperCase()));
+                dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.smev.artefacts.x.supplementary.commons._1_0.GenderType", value));
                 return;
             } catch (ClassNotFoundException e) {
                 System.out.println("BAD TRY TO SET VALUE WITH ENUM");
