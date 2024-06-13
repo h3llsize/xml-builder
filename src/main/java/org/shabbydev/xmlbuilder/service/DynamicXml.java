@@ -46,6 +46,12 @@ public class DynamicXml implements IDynamicXml {
     }
 
     private void generateDynamicType() {
+        if(smevSchemaProperty.getNamespace().equals("urn://x-artefacts-rosreestr-gov-ru/virtual-services/realestate-info-for-person/1.0.1") &&
+                smevSchemaProperty.getName().equals("Document")) {
+            type = dynamicJAXBContext.getDynamicType("ru.rtlabs.nsud.smev.metadata.datamart.RequestDL.Document");
+            return;
+        }
+
         type = dynamicJAXBContext.getDynamicType(smevSchemaProperty.getName());
 
         if(type != null)
@@ -97,7 +103,7 @@ public class DynamicXml implements IDynamicXml {
 
         if("gender".equals(attrName)) {
             try {
-                dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.smev.artefacts.x.supplementary.commons._1_0.GenderType", value));
+                dynamic.set(attrName, dynamicJAXBContext.getEnumConstant("ru.gov.smev.artefacts.x.supplementary.commons._1_0.GenderType", value.toUpperCase()));
                 return;
             } catch (ClassNotFoundException e) {
                 System.out.println("BAD TRY TO SET VALUE WITH ENUM");

@@ -56,6 +56,10 @@ public class DynamicXmlBuilder implements IDynamicXmlBuilder{
         marshaller.marshal(rootXml.get(), stringWriter);
 
         String xmlString = stringWriter.toString(); // Получить содержимое StringWriter в виде строки
+
+        if(xmlString.contains("BapForPeriodRequest"))
+            xmlString = xmlString.replaceAll("FEMALE", "Female").replaceAll("MALE", "Male");
+
         System.out.println(xmlString); // Печатаем строку с XML
 
         return xmlString;
