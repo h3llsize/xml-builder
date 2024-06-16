@@ -58,7 +58,30 @@ public class DynamicXmlBuilder implements IDynamicXmlBuilder{
         String xmlString = stringWriter.toString(); // Получить содержимое StringWriter в виде строки
 
         if(xmlString.contains("BapForPeriodRequest"))
-            xmlString = xmlString.replaceAll("FEMALE", "Female").replaceAll("MALE", "Male");
+            xmlString = xmlString.replaceAll("FEMALE", "Female").replaceAll("MALE", "Male")
+                    .replaceAll("ns1", "smev").replaceAll("ns0", "tns")
+                    .replaceAll("xmlns=\"http://kvs.pfr.com/benefits-common/1.0.0\"",
+                            "xmlns:benefits=\"http://kvs.pfr.com/benefits-common/1.0.0\"")
+                    .replaceAll("Snils", "benefits:Snils")
+                    .replaceAll("BirthDate", "benefits:Birthdate")
+                    .replaceAll("Gender", "benefits:Gender")
+                    .replaceAll("BeginPeriod", "benefits:BeginPeriod")
+                    .replaceAll("NumberOfMonths", "benefits:NumberOfMonths");
+        if(xmlString.contains("RequestDL"))
+            xmlString = xmlString.replaceAll("xmlns=\"urn://x-artefacts-rosreestr-gov-ru/virtual-services/realestate-info-for-person/1.0.1\"",
+                    "xmlns:ns1=\"urn://x-artefacts-rosreestr-gov-ru/virtual-services/realestate-info-for-person/1.0.1\"")
+                            .replaceAll("RequestDL", "ns1:RequestDL")
+                            .replaceAll("Surname", "ns1:Surname")
+                            .replaceAll("Firstname", "ns1:Firstname")
+                            .replaceAll("Patronymic", "ns1:Patronymic")
+                            .replaceAll("Birthdate", "ns1:Birthdate")
+                            .replaceAll("Birthplace", "ns1:Birthplace")
+                            .replaceAll("INN", "ns1:INN")
+                            .replaceAll("SNILS", "ns1:SNILS")
+                            .replaceAll("Document", "ns1:Document")
+                            .replaceAll("Series", "ns1:Series")
+                            .replaceAll("Number", "ns1:Number")
+                            .replaceAll("Date", "ns1:Date");
 
         System.out.println(xmlString); // Печатаем строку с XML
 
