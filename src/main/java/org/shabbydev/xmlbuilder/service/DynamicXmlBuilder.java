@@ -63,7 +63,7 @@ public class DynamicXmlBuilder implements IDynamicXmlBuilder{
                     .replaceAll("xmlns=\"http://kvs.pfr.com/benefits-common/1.0.0\"",
                             "xmlns:benefits=\"http://kvs.pfr.com/benefits-common/1.0.0\"")
                     .replaceAll("Snils", "benefits:Snils")
-                    .replaceAll("BirthDate", "benefits:Birthdate")
+                    .replaceAll("BirthDate", "benefits:BirthDate")
                     .replaceAll("Gender", "benefits:Gender")
                     .replaceAll("BeginPeriod", "benefits:BeginPeriod")
                     .replaceAll("NumberOfMonths", "benefits:NumberOfMonths");
