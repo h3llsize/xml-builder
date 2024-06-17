@@ -69,7 +69,7 @@ public class DynamicXmlBuilder implements IDynamicXmlBuilder{
                     .replaceAll("NumberOfMonths", "benefits:NumberOfMonths");
         if(xmlString.contains("RequestDL"))
             xmlString = xmlString.replaceAll("xmlns=\"urn://x-artefacts-rosreestr-gov-ru/virtual-services/realestate-info-for-person/1.0.1\"",
-                    "xmlns:ns1=\"urn://x-artefacts-rosreestr-gov-ru/virtual-services/realestate-info-for-person/1.0.1\"")
+                    "xmlns:ns1=\"urn://x-artefacts-rosreestr-gov-ru/virtual-services/realestate-info-for-person/1.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"")
                             .replaceAll("RequestDL", "ns1:RequestDL")
                             .replaceAll("Surname", "ns1:Surname")
                             .replaceAll("Firstname", "ns1:Firstname")
