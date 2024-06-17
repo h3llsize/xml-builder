@@ -8,6 +8,7 @@ import org.shabbydev.xml.schemas.SmevSchemaProperty;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
@@ -154,7 +155,15 @@ public class DynamicXml implements IDynamicXml {
         Date date = format.parse(s);
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
-        return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
+        return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(GregorianCalendar.YEAR),
+                cal.get(GregorianCalendar.MONTH) + 1,  // Months are 0-based in GregorianCalendar
+                cal.get(GregorianCalendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED,  // Hour
+                DatatypeConstants.FIELD_UNDEFINED,  // Minute
+                DatatypeConstants.FIELD_UNDEFINED,  // Second
+                DatatypeConstants.FIELD_UNDEFINED,  // Millisecond
+                DatatypeConstants.FIELD_UNDEFINED   // Timezone
+        );
     }
 
     private void fillChilds() {
